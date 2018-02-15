@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -23,18 +25,32 @@ public class Publicacao implements Serializable {
 	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
 	private Date dataPublicacao;
 	private String docURL;
+	@ManyToOne
+	@JoinColumn(name="utilizador_id")
+	private Utilizador utilizador;
 		
 	public Publicacao() {
 	}
 
 
-	public Publicacao(Integer id, String assunto, Date dataDespacho, Date dataPublicacao, String docURL) {
+	public Publicacao(Integer id, String assunto, Date dataDespacho, Date dataPublicacao, String docURL, Utilizador utilizador) {
 		super();
 		this.id = id;
 		this.assunto = assunto;
 		this.dataDespacho = dataDespacho;
 		this.dataPublicacao = dataPublicacao;
 		this.docURL = docURL;
+		this.utilizador = utilizador;
+	}
+
+	
+	public Utilizador getUtilizador() {
+		return utilizador;
+	}
+
+
+	public void setUtilizador(Utilizador utilizador) {
+		this.utilizador = utilizador;
 	}
 
 

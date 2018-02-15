@@ -1,14 +1,18 @@
 package com.ao.portal.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Utilizador implements Serializable {
@@ -26,6 +30,11 @@ public class Utilizador implements Serializable {
 	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
 	private Date dataMudancaPassword;
 		
+	@JsonIgnore
+	@OneToMany(mappedBy="utilizador")
+	private List<Publicacao> publicacoes = new ArrayList<>();
+	
+	
 	public Utilizador() {
 	}
 
@@ -95,6 +104,15 @@ public class Utilizador implements Serializable {
 
 	public void setDataMudancaPassword(Date dataMudancaPassword) {
 		this.dataMudancaPassword = dataMudancaPassword;
+	}
+
+	
+	public List<Publicacao> getPublicacoes() {
+		return publicacoes;
+	}
+
+	public void setPublicacoes(List<Publicacao> publicacoes) {
+		this.publicacoes = publicacoes;
 	}
 
 	@Override
