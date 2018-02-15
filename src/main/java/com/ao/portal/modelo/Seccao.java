@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Seccao implements Serializable {
@@ -15,13 +17,18 @@ public class Seccao implements Serializable {
 	private Integer id;
 	private String nome;
 	
+	@ManyToOne
+	@JoinColumn(name="departamento_id")
+	private Departamento departamento;
+	
 	public Seccao() {
 	}
 
-	public Seccao(Integer id, String nome) {
+	public Seccao(Integer id, String nome, Departamento departamento) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.departamento = departamento;
 	}
 
 	public Integer getId() {
@@ -38,6 +45,14 @@ public class Seccao implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 
 	@Override

@@ -1,10 +1,16 @@
 package com.ao.portal.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Direccao implements Serializable {
@@ -15,6 +21,10 @@ public class Direccao implements Serializable {
 	private Integer id;
 	private String nome;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="direccao")
+	private List<Departamento> departamentos = new ArrayList<>();
+
 	public Direccao() {
 	}
 
@@ -38,6 +48,14 @@ public class Direccao implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public List<Departamento> getDepartamentos() {
+		return departamentos;
+	}
+
+	public void setDepartamentos(List<Departamento> departamentos) {
+		this.departamentos = departamentos;
 	}
 
 	@Override

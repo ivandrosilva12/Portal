@@ -1,10 +1,18 @@
 package com.ao.portal.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Departamento implements Serializable {
@@ -15,13 +23,22 @@ public class Departamento implements Serializable {
 	private Integer id;
 	private String nome;
 	
+	@ManyToOne
+	@JoinColumn(name="direccao_id")
+	private Direccao direccao;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="departamento")
+	private List<Seccao> seccoes = new ArrayList<>();
+	
 	public Departamento() {
 	}
 
-	public Departamento(Integer id, String nome) {
+	public Departamento(Integer id, String nome, Direccao direccao) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.direccao = direccao;
 	}
 
 	public Integer getId() {
@@ -38,6 +55,22 @@ public class Departamento implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Direccao getDireccao() {
+		return direccao;
+	}
+
+	public void setDireccao(Direccao direccao) {
+		this.direccao = direccao;
+	}
+	
+	public List<Seccao> getSeccoes() {
+		return seccoes;
+	}
+
+	public void setSeccoes(List<Seccao> seccoes) {
+		this.seccoes = seccoes;
 	}
 
 	@Override

@@ -23,7 +23,6 @@ public class Publicacao implements Serializable {
 	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
 	private Date dataPublicacao;
 	private String docURL;
-
 		
 	public Publicacao() {
 	}
